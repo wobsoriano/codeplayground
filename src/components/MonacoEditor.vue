@@ -43,11 +43,10 @@ let editor: monaco.editor.IStandaloneCodeEditor
 const isDark = useDarkGlobal()
 
 const props = defineProps<{
-  options: monaco.editor.IEditorOptions & monaco.editor.IGlobalEditorOptions
   activeTab: string
 }>()
 
-const { options, activeTab } = toRefs(props)
+const { activeTab } = toRefs(props)
 
 const editorState = useStorage<Record<string, any>>(StorageName.EDITOR_STATE, {})
 const editorValue = useStorage<Record<string, any>>(StorageName.EDITOR_VALUE, initialEditorValue)
@@ -57,8 +56,7 @@ const emit = defineEmit<(e: 'change', payload: typeof editorValue.value) => void
 onMounted(() => {
   editor = monaco.editor.create(container.value!, {
       language: activeTab.value,
-      theme: isDark.value ? 'vs-dark' : 'vs',
-      ...props.options
+      theme: isDark.value ? 'vs-dark' : 'vs'
   })
   
   emit('change', editorValue.value)
@@ -75,13 +73,6 @@ onMounted(() => {
     editor.setValue(editorValue.value[activeTab.value])
     editor.restoreViewState(editorState.value[activeTab.value])
   }
-})
-
-watch(options, (value) => {
-  editor.updateOptions({
-    ...editor.getOptions,
-    ...value
-  })
 })
 
 watch(activeTab, (currentTab, prevTab) => {

@@ -14,7 +14,6 @@
 import { onMounted, ref, watch } from 'vue'
 import { useStorage } from '@vueuse/core'
 import { generateHTML, StorageName, useDarkGlobal } from '../utils'
-
 // @ts-ignore
 import Split from 'split.js'
 

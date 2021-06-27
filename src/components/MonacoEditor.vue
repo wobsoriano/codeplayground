@@ -5,27 +5,51 @@
 <script setup lang="ts">
 import { onMounted, ref, defineProps, onUnmounted, watch, toRefs, defineEmit } from "vue";
 import { useResizeObserver, useStorage, useDebounceFn } from '@vueuse/core'
-import { editor as MonacoEditor } from 'monaco-editor'
 
-import { StorageName, useDarkGlobal, useMonaco } from "../utils"
+import * as monaco from 'monaco-editor'
+import editorWorker from 'monaco-editor/esm/vs/editor/editor.worker?worker'
+import jsonWorker from 'monaco-editor/esm/vs/language/json/json.worker?worker'
+import cssWorker from 'monaco-editor/esm/vs/language/css/css.worker?worker'
+import htmlWorker from 'monaco-editor/esm/vs/language/html/html.worker?worker'
+import tsWorker from 'monaco-editor/esm/vs/language/typescript/ts.worker?worker'
 
-const monaco = useMonaco()
+// @ts-ignore
+self.MonacoEnvironment = {
+  getWorker(_: string, label: string) {
+    if (label === 'json') {
+      return new jsonWorker()
+    }
+    if (label === 'css' || label === 'scss' || label === 'less') {
+      return new cssWorker()
+    }
+    if (label === 'html' || label === 'handlebars' || label === 'razor') {
+      return new htmlWorker()
+    }
+    if (label === 'typescript' || label === 'javascript') {
+      return new tsWorker()
+    }
+    return new editorWorker()
+  }
+}
+
+import { initialEditorValue, StorageName, useDarkGlobal } from "../utils"
+
+// const monaco = useMonaco()
 const container = ref<HTMLDivElement | null>(null)
 
-let editor: MonacoEditor.IStandaloneCodeEditor
+let editor: monaco.editor.IStandaloneCodeEditor
 
 const isDark = useDarkGlobal()
 
 const props = defineProps<{
-  initialContent: string
-  options: MonacoEditor.IEditorOptions & MonacoEditor.IGlobalEditorOptions
+  options: monaco.editor.IEditorOptions & monaco.editor.IGlobalEditorOptions
   activeTab: string
 }>()
 
 const { options, activeTab } = toRefs(props)
 
 const editorState = useStorage<Record<string, any>>(StorageName.EDITOR_STATE, {})
-const editorValue = useStorage<Record<string, any>>(StorageName.EDITOR_VALUE, {})
+const editorValue = useStorage<Record<string, any>>(StorageName.EDITOR_VALUE, initialEditorValue)
 
 const emit = defineEmit<(e: 'change', payload: typeof editorValue.value) => void>()
 

@@ -3,7 +3,7 @@
         <div class="flex flex-row h-full">
             <div class="w-full">
                 <Tabs :items="items" v-model="currentTab" />
-                <MonacoEditor :activeTab="currentTab" :options="options" :initialContent="initialContent" @change="onChange" />
+                <MonacoEditor :activeTab="currentTab" :options="options" @change="onChange" />
             </div>
             <iframe ref="iframe" class="h-full w-full" sandbox="allow-scripts" frameBorder="0"></iframe>
         </div>
@@ -28,8 +28,6 @@ const items = ref([
 
 const currentTab = useStorage(StorageName.ACTIVE_TAB, items.value[0].value)
 const options = ref({})
-
-const initialContent = ref('')
 
 const isDark = useDarkGlobal()
 

@@ -1,10 +1,10 @@
 <template>
 <!-- Navbar -->
-<nav class="bg-white dark:bg-gray-800">
+<nav class="bg-white dark:bg-gray-900">
         <div class="px-6 py-4 mx-auto flex justify-between items-center">
             <div class="flex items-center justify-between">
                 <div>
-                    <a class="text-2xl font-bold text-gray-800 dark:text-white lg:text-3xl hover:text-gray-700 dark:hover:text-gray-300" href="#">Code Playground</a>
+                    <a class="text-2xl font-bold text-gray-900 dark:text-white lg:text-3xl hover:text-gray-700 dark:hover:text-gray-300" href="#">Code Playground</a>
                 </div>
             </div>
 

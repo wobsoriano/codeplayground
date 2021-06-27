@@ -1,5 +1,5 @@
 <template>
-    <div class="border-b border-gray-200 dark:border-gray-600 text-sm flex justify-start dark:bg-gray-800">
+    <div class="border-b border-gray-200 dark:border-gray-600 text-sm flex justify-start dark:bg-gray-900">
         <a 
         v-for="item in items" 
         :key="item.value" 

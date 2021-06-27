@@ -1,7 +1,7 @@
 <template>
-    <main class="flex-auto relative border-t border-gray-200 dark:border-gray-600" style="height: calc(100vh - 50px)">
+    <main class="flex-auto relative border-t border-gray-200 dark:border-gray-600" style="height: calc(100vh - 65px)">
         <div class="flex flex-row h-full">
-            <div class="w-full">
+            <div id="split-0" class="w-full">
                 <Tabs :items="items" v-model="currentTab" />
                 <MonacoEditor :activeTab="currentTab" :options="options" @change="onChange" />
             </div>
@@ -11,9 +11,12 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from 'vue'
+import { onMounted, ref, watch } from 'vue'
 import { useStorage } from '@vueuse/core'
 import { generateHTML, StorageName, useDarkGlobal } from '../utils'
+
+// @ts-ignore
+import Split from 'split.js'
 
 import MonacoEditor from './MonacoEditor.vue'
 import Tabs from './Tabs.vue'
@@ -38,4 +41,20 @@ watch(isDark, (value) => {
 const onChange = (payload: Record<string, any>) => {
     iframe.value!.srcdoc = generateHTML(payload, isDark.value)
 }
+
+onMounted(() => {
+    Split(['#split-0', 'iframe'])
+})
 </script>
+
+<style>
+.gutter {
+    @apply dark:bg-gray-900 bg-no-repeat border-l border-r border-gray-200 dark:border-gray-600;
+    background-position: 50%;
+}
+
+.gutter.gutter-horizontal {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAeCAYAAADkftS9AAAAIklEQVQoU2M4c+bMfxAGAgYYmwGrIIiDjrELjpo5aiZeMwF+yNnOs5KSvgAAAABJRU5ErkJggg==');
+    cursor: col-resize;
+}
+</style>

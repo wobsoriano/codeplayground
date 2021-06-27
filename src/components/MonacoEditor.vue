@@ -16,31 +16,38 @@ let editor: MonacoEditor.IStandaloneCodeEditor
 
 const isDark = useDark()
 
-const editorState = useStorage<Record<string, any>>(StorageName.EDITOR_STATE, {})
-const editorValue = useStorage<Record<string, any>>(StorageName.EDITOR_VALUE, {})
-
 const props = defineProps<{
   initialContent: string
   options: MonacoEditor.IEditorOptions & MonacoEditor.IGlobalEditorOptions
   activeTab: string
 }>()
 
+// if (props.initialContent) {
+//   localStorage.setItem(StorageName.EDITOR_VALUE, props.initialContent)
+// }
+
 const { options, activeTab } = toRefs(props)
+
+const editorState = useStorage<Record<string, any>>(StorageName.EDITOR_STATE, {})
+const editorValue = useStorage<Record<string, any>>(StorageName.EDITOR_VALUE, {})
 
 const emit = defineEmit<(e: 'change', payload: typeof editorValue.value) => void>()
 
 onMounted(() => {
   editor = monaco.editor.create(container.value!, {
-      value: props.initialContent,
       language: activeTab.value,
       theme: isDark.value ? 'vs-dark' : 'vs',
       ...props.options
   })
+  
+  emit('change', editorValue.value)
 
   editor.onDidChangeModelContent(useDebounceFn(() => {
-    editorValue.value[activeTab.value] = editor.getValue()!
-    emit('change', editorValue.value)
-  }, 300))
+    if (editorValue.value[activeTab.value] !== editor.getValue()!) {
+      editorValue.value[activeTab.value] = editor.getValue()!
+      emit('change', editorValue.value)
+    }
+  }, 500))
 
   // Set values from storage on load
   if (editorValue.value[activeTab.value]) {

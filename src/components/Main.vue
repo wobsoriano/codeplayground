@@ -11,9 +11,9 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, watchEffect } from 'vue'
 import { useStorage } from '@vueuse/core'
-import { StorageName } from '../utils'
+import { generateHTML, StorageName, useDarkGlobal } from '../utils'
 
 import MonacoEditor from './MonacoEditor.vue'
 import Tabs from './Tabs.vue'
@@ -31,11 +31,13 @@ const options = ref({})
 
 const initialContent = ref('')
 
+const isDark = useDarkGlobal()
+
+watchEffect(() => {
+    iframe.value?.contentWindow?.postMessage(`theme-${isDark.value ? 'dark' : 'light'}`, '*')
+})
+
 const onChange = (payload: Record<string, any>) => {
-    iframe.value!.srcdoc = `<html class=" h-full">
-        <body class="h-full">${payload.html}</body>
-        <style>${payload.css}</style>
-        <script type="module">${payload.javascript}</\script>
-    </html`;
+    iframe.value!.srcdoc = generateHTML(payload, isDark.value)
 }
 </script>

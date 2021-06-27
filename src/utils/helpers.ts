@@ -2,19 +2,34 @@ import { createGlobalState, useDark } from "@vueuse/core"
 
 export const generateHTML = (payload: Record<string, any>, isDark?: boolean) => {
     return `<html class="${isDark ? 'dark' : ''}">
-        <head><style>${payload.css}</style></head>
-        <body>
-            ${payload.html}
+        <head>
+            <style id="playground-style">${payload.css}</style>
+            <script type="module" id="playground-script">
+                ${payload.javascript}
+            </\script>
             <script>
                 window.addEventListener('message', function(event) {
+                    console.log(event.data)
                     if (event.data === 'theme-dark') {
                         document.documentElement.classList.add('dark')
                     } else if (event.data === 'theme-light') {
                         document.documentElement.classList.remove('dark')
+                    } else if (event.data.html !== undefined) {
+                        console.log('html updateds', event.data.html)
+                        document.body.innerHTML = event.data.html
+                    } else if (event.data.css !== undefined) {
+                        document.querySelector('#playground-style').innerHTML = event.data.css
+                    } else if (event.data.javascript !== undefined) {
+                        console.log('js updated')
+                        document.querySelector('#playground-script').innerHTML = event.data.javascript
+                    } else {
+                        console.log('Unknown message received')
                     }
                 })
             </\script>
-            <script type="module">${payload.javascript}</\script>
+        </head>
+        <body>
+            ${payload.html}
         </body>
     </html`
 }

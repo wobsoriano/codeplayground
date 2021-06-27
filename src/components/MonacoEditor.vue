@@ -1,5 +1,5 @@
 <template>
-  <div ref="container" class="w-full h-full"></div>
+  <div ref="container" style="height: calc(100% - 2.5rem)"></div>
 </template>
 
 <script setup lang="ts">

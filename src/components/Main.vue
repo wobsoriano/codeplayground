@@ -1,5 +1,5 @@
 <template>
-    <main class="flex-auto relative border-t border-gray-200 dark:border-gray-600" style="height: calc(100vh - 65px)">
+    <main class="border-t border-gray-200 dark:border-gray-600" style="height: calc(100vh - 4rem)">
         <div class="flex flex-row h-full">
             <div id="split-0" class="w-full">
                 <Tabs :items="items" v-model="currentTab" />
@@ -37,8 +37,16 @@ watch(isDark, (value) => {
     iframe.value?.contentWindow?.postMessage(`theme-${value ? 'dark' : 'light'}`, '*')
 })
 
+let initialLoad = true
+
 const onChange = (payload: Record<string, any>) => {
-    iframe.value!.srcdoc = generateHTML(payload, isDark.value)
+    console.log(currentTab.value)
+    if (initialLoad) {
+        initialLoad = false
+        iframe.value!.srcdoc = generateHTML(payload, isDark.value)
+    } else {
+        iframe.value?.contentWindow?.postMessage({ [currentTab.value]: payload[currentTab.value] }, '*')
+    }
 }
 
 onMounted(() => {

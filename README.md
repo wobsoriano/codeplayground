@@ -21,6 +21,7 @@ I attempt to clone codepen.io using Vue 3 and Monaco editor.
 - [Vue 3](https://v3.vuejs.org/)
 - [Vite](https://vitejs.dev/)
 - [Monaco Editor](https://github.com/microsoft/monaco-editor)
+- [Tailwind CSS](https://tailwindcss.com/)
 - [VueUse](https://vueuse.org/)
 - [Split.js](https://github.com/nathancahill/split)
 - [Skypack for CDN imports](https://www.skypack.dev/)

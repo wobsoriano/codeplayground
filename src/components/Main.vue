@@ -1,5 +1,5 @@
 <template>
-    <main class="border-t border-gray-200 dark:border-gray-700" style="height: calc(100vh - 4rem)">
+    <main class="border-t border-gray-200 dark:border-gray-700">
         <div class="flex flex-row h-full">
             <div id="split-0" class="w-full">
                 <Tabs :items="items" v-model="currentTab" />
@@ -47,6 +47,10 @@ onMounted(() => {
 </script>
 
 <style>
+main {
+    height: calc(100vh - var(--nav-height))
+}
+
 .gutter {
     @apply dark:bg-gray-900 bg-no-repeat;
     background-position: 50%;

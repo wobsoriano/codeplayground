@@ -4,27 +4,23 @@
 
 <script setup lang="ts">
 import { onMounted, ref, defineProps, onUnmounted, watch, toRefs, defineEmit } from "vue";
-import { useDark, useResizeObserver, useStorage, useDebounceFn } from '@vueuse/core'
+import { useResizeObserver, useStorage, useDebounceFn } from '@vueuse/core'
 import { editor as MonacoEditor } from 'monaco-editor'
 
-import { StorageName, useMonaco } from "../utils"
+import { StorageName, useDarkGlobal, useMonaco } from "../utils"
 
 const monaco = useMonaco()
 const container = ref<HTMLDivElement | null>(null)
 
 let editor: MonacoEditor.IStandaloneCodeEditor
 
-const isDark = useDark()
+const isDark = useDarkGlobal()
 
 const props = defineProps<{
   initialContent: string
   options: MonacoEditor.IEditorOptions & MonacoEditor.IGlobalEditorOptions
   activeTab: string
 }>()
-
-// if (props.initialContent) {
-//   localStorage.setItem(StorageName.EDITOR_VALUE, props.initialContent)
-// }
 
 const { options, activeTab } = toRefs(props)
 
@@ -78,6 +74,12 @@ watch(activeTab, (currentTab, prevTab) => {
     editor.restoreViewState(editorState.value[currentTab]!)
     editor.focus()
   }
+})
+
+watch(isDark, (value) => {
+  editor.updateOptions({
+    theme: value ? 'vs-dark' : 'vs'
+  })
 })
 
 const editorObserver = useResizeObserver(container, () => {

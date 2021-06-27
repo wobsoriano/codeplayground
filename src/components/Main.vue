@@ -11,7 +11,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watchEffect } from 'vue'
+import { ref, watch } from 'vue'
 import { useStorage } from '@vueuse/core'
 import { generateHTML, StorageName, useDarkGlobal } from '../utils'
 
@@ -33,8 +33,8 @@ const initialContent = ref('')
 
 const isDark = useDarkGlobal()
 
-watchEffect(() => {
-    iframe.value?.contentWindow?.postMessage(`theme-${isDark.value ? 'dark' : 'light'}`, '*')
+watch(isDark, (value) => {
+    iframe.value?.contentWindow?.postMessage(`theme-${value ? 'dark' : 'light'}`, '*')
 })
 
 const onChange = (payload: Record<string, any>) => {

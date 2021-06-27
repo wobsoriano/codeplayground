@@ -1,5 +1,5 @@
 <template>
-    <main class="border-t border-gray-200 dark:border-gray-600" style="height: calc(100vh - 4rem)">
+    <main class="border-t border-gray-200 dark:border-gray-700" style="height: calc(100vh - 4rem)">
         <div class="flex flex-row h-full">
             <div id="split-0" class="w-full">
                 <Tabs :items="items" v-model="currentTab" />
@@ -37,16 +37,8 @@ watch(isDark, (value) => {
     iframe.value?.contentWindow?.postMessage(`theme-${value ? 'dark' : 'light'}`, '*')
 })
 
-let initialLoad = true
-
 const onChange = (payload: Record<string, any>) => {
-    console.log(currentTab.value)
-    if (initialLoad) {
-        initialLoad = false
-        iframe.value!.srcdoc = generateHTML(payload, isDark.value)
-    } else {
-        iframe.value?.contentWindow?.postMessage({ [currentTab.value]: payload[currentTab.value] }, '*')
-    }
+    iframe.value!.srcdoc = generateHTML(payload, isDark.value)
 }
 
 onMounted(() => {
@@ -56,7 +48,7 @@ onMounted(() => {
 
 <style>
 .gutter {
-    @apply dark:bg-gray-900 bg-no-repeat border-l border-r border-gray-200 dark:border-gray-600;
+    @apply dark:bg-gray-900 bg-no-repeat;
     background-position: 50%;
 }
 

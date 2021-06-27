@@ -6,6 +6,8 @@
 import { onMounted, ref, defineProps, onUnmounted, watch, toRefs, defineEmit } from "vue";
 import { useResizeObserver, useStorage, useDebounceFn } from '@vueuse/core'
 
+// Import monaco
+// https://github.com/vitejs/vite/discussions/1791
 import * as monaco from 'monaco-editor'
 import editorWorker from 'monaco-editor/esm/vs/editor/editor.worker?worker'
 import jsonWorker from 'monaco-editor/esm/vs/language/json/json.worker?worker'
@@ -34,7 +36,6 @@ self.MonacoEnvironment = {
 
 import { initialEditorValue, StorageName, useDarkGlobal } from "../utils"
 
-// const monaco = useMonaco()
 const container = ref<HTMLDivElement | null>(null)
 
 let editor: monaco.editor.IStandaloneCodeEditor

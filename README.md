@@ -35,6 +35,10 @@ I attempt to clone codepen.io using Vue 3 and Monaco editor.
 
 [`<script setup>`](https://github.com/vuejs/rfcs/pull/227) is a feature that is currently in RFC stage. To get proper IDE support for the syntax, use [Volar](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.volar) instead of Vetur (and disable Vetur).
 
-## Inspirations
+## Inspiration
 - https://tailwind-layouts.vercel.app/
 - https://play.tailwindcss.com/
+
+## License
+
+Licensed under the [MIT license](https://opensource.org/licenses/MIT).

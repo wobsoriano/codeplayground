@@ -13,8 +13,6 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps, defineEmit } from 'vue'
-
 interface Item {
     text: string
     value: string
@@ -24,7 +22,7 @@ const props = defineProps<{
   modelValue: string
   items: Item[]
 }>()
-const emit = defineEmit<(e: 'update:modelValue', tab: string) => void>()
+const emit = defineEmits<(e: 'update:modelValue', tab: string) => void>()
 </script>
 
 <style>

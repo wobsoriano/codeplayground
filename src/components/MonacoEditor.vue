@@ -3,7 +3,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref, defineProps, onUnmounted, watch, toRefs, defineEmit } from "vue";
+import { onMounted, ref, onUnmounted, watch, toRefs } from "vue";
 import { useResizeObserver, useStorage, useDebounceFn } from '@vueuse/core'
 
 // Import monaco
@@ -51,7 +51,7 @@ const { activeTab } = toRefs(props)
 const editorState = useStorage<Record<string, any>>(StorageName.EDITOR_STATE, {})
 const editorValue = useStorage<Record<string, any>>(StorageName.EDITOR_VALUE, initialEditorValue)
 
-const emit = defineEmit<(e: 'change', payload: typeof editorValue.value) => void>()
+const emit = defineEmits<(e: 'change', payload: typeof editorValue.value) => void>()
 
 onMounted(() => {
   editor = monaco.editor.create(container.value!, {

@@ -3,7 +3,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref, onUnmounted, watch, toRefs } from "vue";
+import { onMounted, ref, onUnmounted, watch, toRefs } from 'vue'
 import { useResizeObserver, useStorage, useDebounceFn } from '@vueuse/core'
 
 // Import monaco

@@ -13,10 +13,9 @@
 <script setup lang="ts">
 import { onMounted, ref, watch } from 'vue'
 import { useStorage } from '@vueuse/core'
-import { generateHTML, StorageName, useDarkGlobal } from '../utils'
-// @ts-ignore
 import Split from 'split.js'
 
+import { generateHTML, StorageName, useDarkGlobal } from '../utils'
 import MonacoEditor from './MonacoEditor.vue'
 import Tabs from './Tabs.vue'
 

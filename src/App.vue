@@ -10,6 +10,6 @@ import Main from './components/Main.vue'
 
 <style>
 body {
-  --nav-height: 4.2rem;
+  --nav-height: 3rem;
 }
 </style>

@@ -5,6 +5,7 @@
 <script setup lang="ts">
 import { onMounted, ref, onUnmounted, watch, toRefs } from 'vue'
 import { useResizeObserver, useStorage, useDebounceFn } from '@vueuse/core'
+import { initialEditorValue, StorageName, useDarkGlobal } from '../utils'
 
 // Import monaco
 // https://github.com/vitejs/vite/discussions/1791
@@ -33,8 +34,6 @@ self.MonacoEnvironment = {
     return new editorWorker()
   }
 }
-
-import { initialEditorValue, StorageName, useDarkGlobal } from "../utils"
 
 const container = ref<HTMLDivElement | null>(null)
 

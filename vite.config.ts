@@ -14,9 +14,9 @@ export default defineConfig({
           cssWorker: [`${prefix}/language/css/css.worker`],
           htmlWorker: [`${prefix}/language/html/html.worker`],
           tsWorker: [`${prefix}/language/typescript/ts.worker`],
-          editorWorker: [`${prefix}/editor/editor.worker`]
-        }
-      }
-    }
-  }
+          editorWorker: [`${prefix}/editor/editor.worker`],
+        },
+      },
+    },
+  },
 })

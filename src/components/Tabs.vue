@@ -1,3 +1,16 @@
+<script setup lang="ts">
+interface Item {
+  text: string
+  value: string
+}
+
+const props = defineProps<{
+  modelValue: string
+  items: Item[]
+}>()
+const emit = defineEmits<(e: 'update:modelValue', tab: string) => void>()
+</script>
+
 <template>
   <div
     class="border-b border-gray-200 dark:border-gray-700 text-sm flex justify-start dark:bg-gray-900 h-10"
@@ -13,19 +26,6 @@
     </a>
   </div>
 </template>
-
-<script setup lang="ts">
-interface Item {
-  text: string;
-  value: string;
-}
-
-const props = defineProps<{
-  modelValue: string;
-  items: Item[];
-}>();
-const emit = defineEmits<(e: 'update:modelValue', tab: string) => void>();
-</script>
 
 <style>
 .tab-item {

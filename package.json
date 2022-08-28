@@ -8,7 +8,7 @@
     "lint:fix": "eslint . --fix"
   },
   "dependencies": {
-    "@vueuse/core": "^6.5.3",
+    "@vueuse/core": "^9.1.1",
     "monaco-editor": "^0.25.2",
     "split.js": "^1.6.4",
     "vue": "^3.2.19"

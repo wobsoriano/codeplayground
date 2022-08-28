@@ -11,7 +11,7 @@
     "@vueuse/core": "^9.1.1",
     "monaco-editor": "^0.25.2",
     "split.js": "^1.6.4",
-    "vue": "^3.2.19"
+    "vue": "^3.2.37"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^0.26.1",

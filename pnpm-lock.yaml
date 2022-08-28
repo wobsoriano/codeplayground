@@ -13,7 +13,7 @@ specifiers:
   tailwindcss: ^3.0.18
   typescript: ^4.3.2
   vite: ^2.5.10
-  vue: ^3.2.19
+  vue: ^3.2.37
   vue-tsc: ^0.3.0
 
 dependencies:
